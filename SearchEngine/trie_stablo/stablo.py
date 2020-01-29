@@ -1,22 +1,24 @@
 """
 Modul sadrži implementaciju trie stabla.
 """
+import os
 import queue
 from typing import Tuple
 from main.parser import Parser
 
 
-def make_tree():
+def make_tree(dirname):
     p = Parser()
-    link, words = p.parse('C:/Users/pc/Desktop/Stabla/python-2.7.7-docs-html/about.html')
-
     root = TrieNode('*')
-    i = 0
-    while i < len(words):
-        root.add(words[i], 'C:/Users/pc/Desktop/Stabla/python-2.7.7-docs-html/about.html')
-        i += 1
+    for cur, dirs, files in os.walk(dirname):
+        for f in files:
+            if ".html" in f:
+                link, words = p.parse(os.path.join(cur,f))
+                i = 0
+                while i < len(words):
+                    root.add(words[i], os.path.join(cur,f))
+                    i += 1
     return root
-
 
 class TrieNode(object):
     """
@@ -90,3 +92,8 @@ class TrieNode(object):
             for child in e.children:
                 to_visit.enqueue(child)
 
+
+if __name__ == "__main__":
+    #path = 'C:\\Users\\pc\\Desktop\\Treca godina\\OISiSI\\Projekat 2 repozitorijum\\OISISI_Projekat2\\SearchEngine\\test'
+    path = 'C:\\Users\\pc\Desktop\\Stabla\\python-2.7.7-docs-html'
+    root = make_tree(path)
