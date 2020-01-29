@@ -1,14 +1,17 @@
 from main.parser import Parser
+import os
 
-def make_graph():
+def make_graph(dirname):
     p = Parser()
-    link,word=p.parse('C:\\Users\\Jelena\\Desktop\\za_projekat\\python-2.7.7-docs-html\\about.html')
 
-    g = {'C:\\Users\\Jelena\\Desktop\\za_projekat\\python-2.7.7-docs-html\\about.html': link,
-         }
+    g={}
+    for r,d,f in os.walk(dirname):
+        for file in f:
+            if ".html" in file:
+                link,word=p.parse(os.path.join(r,file))
+                g[os.path.join(r,file)] = link
 
     graph=Graph(g)
-    print(graph)
 
 class Graph(object):
 
