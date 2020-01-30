@@ -13,6 +13,17 @@ def make_graph(dirname):
 
     graph=Graph(g)
 
+def links_for_rank(g,graph, path):
+    br = 0
+    s=set()
+    for a in range(0, len(graph.vertices())):
+        r = graph.vertices()[a]
+        if g[r].__contains__(path):
+            br += 1
+            s.add(r)
+
+    return br,s
+
 class Graph(object):
 
     def __init__(self, graph_dict=None):
