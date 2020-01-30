@@ -5,7 +5,7 @@ import os
 import queue
 from typing import Tuple
 from main.parser import Parser
-
+from collections import Counter
 
 def make_tree(dirname):
     p = Parser()
@@ -19,6 +19,12 @@ def make_tree(dirname):
                     root.add(words[i], os.path.join(cur,f))
                     i += 1
     return root
+
+def find_word_document(word, path):
+     p = Parser()
+     link, words = p.parse(path)
+     count = Counter(words)
+     return  count[word]
 
 class TrieNode(object):
     """
@@ -74,6 +80,8 @@ class TrieNode(object):
                 return False, 0, {}
         return True, node.counter, node.link_set
 
+
+
     def breath_first(self):
         node = self
         if not node.children:
@@ -93,7 +101,9 @@ class TrieNode(object):
                 to_visit.enqueue(child)
 
 
-if __name__ == "__main__":
-    #path = 'C:\\Users\\pc\\Desktop\\Treca godina\\OISiSI\\Projekat 2 repozitorijum\\OISISI_Projekat2\\SearchEngine\\test'
-    path = 'C:\\Users\\pc\Desktop\\Stabla\\python-2.7.7-docs-html'
-    root = make_tree(path)
+# if __name__ == "__main__":
+#     # path = 'C:\\Users\\pc\Desktop\\Stabla\\python-2.7.7-docs-html'
+#     # root = make_tree(path)
+
+
+
