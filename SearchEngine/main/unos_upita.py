@@ -10,7 +10,8 @@ def parsiraj_upit(upit):
         return text[1],words
     elif " " not in upit:
         #Upit sadrzi samo jednu rijec
-        return None,upit
+        words.append(upit)
+        return None,words
     else:
         #Upit sadrzi vise rijeci
         text = upit.split()
