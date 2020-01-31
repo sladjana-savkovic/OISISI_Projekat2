@@ -12,6 +12,7 @@ def make_graph(dirname):
                 g[os.path.join(r,file)] = link
 
     graph=Graph(g)
+    return g,graph
 
 def links_for_rank(g,graph, path):
     br = 0
