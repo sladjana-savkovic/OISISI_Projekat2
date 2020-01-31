@@ -2,7 +2,7 @@
 Modul sadrži implementaciju trie stabla.
 """
 import os
-import queue
+from trie_stablo.queue import *
 from typing import Tuple
 from main.parser import Parser
 from collections import Counter
@@ -20,11 +20,18 @@ def make_tree(dirname):
                     i += 1
     return root
 
-def find_word_document(word, path):
+#Funkcija vraca broj pojavljivanja trazenih rijeci u nekom dokumentu
+def find_word_document(word_list, path):
      p = Parser()
+     result = [] #rezultujuci niz broja pojavljivanja
+     br = 0 #broj ne nula elemenata u nizu
      link, words = p.parse(path)
      count = Counter(words)
-     return  count[word]
+     for i in range(0,len(word_list)):
+         if count[word_list[i]] > 0:
+             br += 1
+         result.append(count[word_list[i]])
+     return  result,br
 
 class TrieNode(object):
     """
@@ -88,7 +95,7 @@ class TrieNode(object):
             print("")
             return
 
-        to_visit = queue.Queue()
+        to_visit = Queue()
         to_visit.enqueue(node)
 
         while not to_visit.is_empty():
@@ -99,11 +106,5 @@ class TrieNode(object):
 
             for child in e.children:
                 to_visit.enqueue(child)
-
-
-# if __name__ == "__main__":
-#     # path = 'C:\\Users\\pc\Desktop\\Stabla\\python-2.7.7-docs-html'
-#     # root = make_tree(path)
-
 
 
