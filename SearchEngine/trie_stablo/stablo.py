@@ -2,23 +2,11 @@
 Modul sadrži implementaciju trie stabla.
 """
 import os
+
+from set.set_class import Set
 from trie_stablo.queue import *
-from typing import Tuple
 from main.parser import Parser
 from collections import Counter
-
-def make_tree(dirname):
-    p = Parser()
-    root = TrieNode('*')
-    for cur, dirs, files in os.walk(dirname):
-        for f in files:
-            if ".html" in f:
-                link, words = p.parse(os.path.join(cur,f))
-                i = 0
-                while i < len(words):
-                    root.add(words[i], os.path.join(cur,f))
-                    i += 1
-    return root
 
 #Funkcija vraca broj pojavljivanja trazenih rijeci u nekom dokumentu
 def find_word_document(word_list, path):
@@ -42,7 +30,7 @@ class TrieNode(object):
         self.char = char #slovo koje cvor sadrzi
         self.children = [] #djeca cvora su predstavljena listom
         self.word_finished = False #oznaka za kraj rijeci
-        self.link_set = set() #skup linkova stranica u kojima se rijec nalazi
+        self.link_set = Set() #skup linkova stranica u kojima se rijec nalazi
         self.counter = 0 #koliko puta se ista rijec javlja u dokumentu
 
     def add(self, word: str, link: str):
@@ -70,7 +58,7 @@ class TrieNode(object):
         node.link_set.add(link)
         node.counter += 1
 
-    def find_word(self, word: str) -> Tuple[bool, int, set]:
+    def find_word(self, word: str):
         node = self
         # Ako je stablo prazno, vracamo False
         if not self.children:
