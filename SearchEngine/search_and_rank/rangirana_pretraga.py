@@ -4,6 +4,9 @@ from graph.graph_class import links_for_rank
 def rang_pretraga(g, graph, words, result, operator):
     dict = {}
 
+    if result is None:
+        return None
+
     for page in result:
         r1,r2,r3 = 0,0,0
         broj_rijeci,broj_nenultih=find_word_document(words,page)
