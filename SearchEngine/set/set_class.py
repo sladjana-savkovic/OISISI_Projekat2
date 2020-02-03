@@ -1,30 +1,25 @@
 
 class Set(object):
+
     def __init__(self):
-        self.lista = []
-
+        self.dict = {}
     def add(self, e):
-        if not e in self.lista:
-            self.lista.append(e)
-
-    def __contains__(self, e):
-        if e in self.lista:
-            return True
-        else:
-            return False
+        self.dict[e ] =e
 
     def __len__(self):
-        return len(self.lista)
+        return len(self.dict)
 
     def __iter__(self):
-        for e in self.lista:
-            yield e
+        return iter(self.dict.copy())
 
-    def remove(self,e):
-        if e in self.lista:
-            self.lista.remove(e)
+    def __contains__(self, e):
+        if self.dict.get(e) is not None:
+            return True
+
         else:
-            raise KeyError("Element ne postoji u skupu!")
+            return False
+    def remove(self ,e):
+        del self.dict[e]
 
     def __or__(self, other):
         result = Set()
@@ -37,7 +32,7 @@ class Set(object):
     def __and__(self, other):
         result = Set()
         for e in other:
-            if e in self.lista:
+            if e in self.dict:
                 result.add(e)
         return result
 
@@ -48,8 +43,7 @@ class Set(object):
                 result.add(e)
         return result
 
-    def __str__(self):
-        a=""
-        for e in self.lista:
+    def __str__(self): a=""
+        for e in self.dict:
             a += str(e) + "\n"
         return a
