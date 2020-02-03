@@ -1,18 +1,3 @@
-from main.parser import Parser
-import os
-
-def make_graph(dirname):
-    p = Parser()
-
-    g={}
-    for r,d,f in os.walk(dirname):
-        for file in f:
-            if ".html" in file:
-                link,word=p.parse(os.path.join(r,file))
-                g[os.path.join(r,file)] = link
-
-    graph=Graph(g)
-    return g,graph
 
 def links_for_rank(g,graph, path):
     br = 0
