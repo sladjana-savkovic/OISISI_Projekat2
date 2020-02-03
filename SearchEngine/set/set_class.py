@@ -4,7 +4,7 @@ class Set(object):
         self.lista = []
 
     def add(self, e):
-        if not self.lista.__contains__(e):
+        if not e in self.lista:
             self.lista.append(e)
 
     def __contains__(self, e):
@@ -21,7 +21,7 @@ class Set(object):
             yield e
 
     def remove(self,e):
-        if self.lista.__contains__(e):
+        if e in self.lista:
             self.lista.remove(e)
         else:
             raise KeyError("Element ne postoji u skupu!")
@@ -37,11 +37,11 @@ class Set(object):
     def __and__(self, other):
         result = Set()
         for e in other:
-            if self.lista.__contains__(e):
+            if e in self.lista:
                 result.add(e)
         return result
 
-    def minus(self, other):
+    def __sub__(self, other):
         result = Set()
         for e in self:
             if e not in other:
