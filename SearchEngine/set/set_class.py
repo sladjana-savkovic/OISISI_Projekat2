@@ -47,3 +47,9 @@ class Set(object):
             if e not in other:
                 result.add(e)
         return result
+
+    def __str__(self):
+        a=""
+        for e in self.lista:
+            a += str(e) + "\n"
+        return a
