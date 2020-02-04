@@ -43,7 +43,8 @@ class Set(object):
                 result.add(e)
         return result
 
-    def __str__(self): a=""
+    def __str__(self):
+        a=""
         for e in self.dict:
             a += str(e) + "\n"
         return a
