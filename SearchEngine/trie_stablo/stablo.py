@@ -1,8 +1,6 @@
 """
 Modul sadrži implementaciju trie stabla.
 """
-import os
-
 from set.set_class import Set
 from trie_stablo.queue import *
 from main.parser import Parser
@@ -19,7 +17,7 @@ def find_word_document(word_list, path):
          if count[word_list[i]] > 0:
              br += 1
          result.append(count[word_list[i]])
-     return  result,br
+     return result,br
 
 class TrieNode(object):
     """
@@ -33,9 +31,9 @@ class TrieNode(object):
         self.link_set = Set() #skup linkova stranica u kojima se rijec nalazi
         self.counter = 0 #koliko puta se ista rijec javlja u dokumentu
 
-    def add(self, word: str, link: str):
+    def add(self, word, link):
         """
-        Dodavanje rijecu u trie stablo, ako znam link stranice u kojoj se rijec nalazi
+        Dodavanje rijeci u trie stablo, ako znam link stranice u kojoj se rijec nalazi
         """
         node = self
         for char in word:
