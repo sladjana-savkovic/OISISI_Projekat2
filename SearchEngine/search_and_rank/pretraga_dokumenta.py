@@ -12,19 +12,19 @@ def pretraga_dokumenta(root,path,words,operator):
     for cur, dirs, files in os.walk(path):
         for f in files:
             if ".html" in f:
-                path_set.add(os.path.join(cur,f))
+                path_set.add(os.path.join(cur,f),os.path.join(cur,f))
 
     op_set = Set()
     if operator == "AND":
-        a1, b1, c1 = root.find_word(words[0])
-        a2, b2, c2 = root.find_word(words[1])
+        c1 = root.find_word(words[0])
+        c2 = root.find_word(words[1])
         if len(c1) is 0 or len(c2) is 0:
             return None
         else:
             op_set = c1 & c2
     if operator == "OR":
-        a1,b1,c1 = root.find_word(words[0])
-        a2, b2, c2 = root.find_word(words[1])
+        c1 = root.find_word(words[0])
+        c2 = root.find_word(words[1])
         if len(c1) is 0 and len(c2) is 0:
             return None
         elif len(c1) is 0:
@@ -34,8 +34,8 @@ def pretraga_dokumenta(root,path,words,operator):
         else:
             op_set = c1 | c2
     if operator == "NOT":
-        a1, b1, c1 = root.find_word(words[0])
-        a2, b2, c2 = root.find_word(words[1])
+        c1 = root.find_word(words[0])
+        c2 = root.find_word(words[1])
         if (len(c1) is 0 and len(c2) is not 0) or (len(c1) is 0 and len(c2) is 0):
             return None
         elif len(c1) is not 0 and len(c2) is 0:
@@ -45,7 +45,7 @@ def pretraga_dokumenta(root,path,words,operator):
     else:
         flag = False
         for i in words:
-            a1, b1, c1 = root.find_word(i)
+            c1 = root.find_word(i)
             if len(c1) is not 0 and flag is False:
                 rez = c1
                 flag = True
