@@ -4,8 +4,14 @@ class Set(object):
     def __init__(self):
         self.dict = {}
 
-    def add(self, e):
-        self.dict[e]=e
+    def add(self, key, value):
+        self.dict[key]=value
+
+    def ret_key(self):
+        return self.dict.keys()
+
+    def inc_value(self, key):
+        self.dict[key] += 1
 
     def __len__(self):
         return len(self.dict)
@@ -25,23 +31,23 @@ class Set(object):
     def __or__(self, other):
         result = Set()
         for e in self:
-            result.add(e)
+            result.add(e,e)
         for e in other:
-            result.add(e)
+            result.add(e,e)
         return result
 
     def __and__(self, other):
         result = Set()
         for e in other:
             if e in self.dict:
-                result.add(e)
+                result.add(e,e)
         return result
 
     def __sub__(self, other):
         result = Set()
         for e in self:
             if e not in other:
-                result.add(e)
+                result.add(e,e)
         return result
 
     def __str__(self):
