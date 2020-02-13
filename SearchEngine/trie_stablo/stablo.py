@@ -24,12 +24,10 @@ class TrieNode(object):
     Implementacija cvora trie stabla
     """
 
-    def __init__(self, char: str):
+    def __init__(self, char):
         self.char = char #slovo koje cvor sadrzi
         self.children = [] #djeca cvora su predstavljena listom
-        self.word_finished = False #oznaka za kraj rijeci
-        self.link_set = Set() #skup linkova stranica u kojima se rijec nalazi
-        self.counter = 0 #koliko puta se ista rijec javlja u dokumentu
+        self.link_dict = Set() #rjecnik linkova stranica u kojima se rijec nalazi i broj pojavljivanja svake rijeci u stranici
 
     def add(self, word, link):
         """
@@ -37,7 +35,7 @@ class TrieNode(object):
         """
         node = self
         for char in word:
-            found_in_child = False
+            found_in_child = False #Pretpostavka da nismo nasli takvo slovo
             # Trazimo vrijednost cvorova koji su djeca cvora node
             for child in node.children:
                 if child.char == char:
@@ -51,16 +49,18 @@ class TrieNode(object):
                 node.children.append(new_node)
                 # Novi roditelj je cvor koji smo dodali
                 node = new_node
-        # Dodavanje je zavrseno
-        node.word_finished = True
-        node.link_set.add(link)
-        node.counter += 1
 
-    def find_word(self, word: str):
+        if link not in node.link_dict.ret_key():
+            node.link_dict.add(link,1)
+        else:
+            node.link_dict.inc_value(link)
+
+    #Promijeniti povratnu vrijednost funkcije
+    def find_word(self, word):
         node = self
         # Ako je stablo prazno, vracamo False
         if not self.children:
-            return False, 0, {}
+            return {}
         for char in word:
             char_not_found = True
             # Prolazi kroz djecu cvora node
@@ -70,10 +70,9 @@ class TrieNode(object):
                     node = child
                     break
             if char_not_found:
-                return False, 0, {}
-        return True, node.counter, node.link_set
+                return {}
 
-
+        return node.link_dict
 
     def breath_first(self):
         node = self
@@ -86,11 +85,15 @@ class TrieNode(object):
 
         while not to_visit.is_empty():
             e = to_visit.dequeue()
+
             print(e.char)
-            for s in e.link_set:
-                print(s)
+
+            print('*****')
+            # for i in e.link_dict:
+            #     print(str(i) + " " + str(e.link_dict[i]))
+            print(e.link_dict)
+            print('*****')
 
             for child in e.children:
                 to_visit.enqueue(child)
-
 
