@@ -3,7 +3,9 @@ def paginacija(list, n):
     i = 0
     while True:
         ispis(list,i,i+n)
-        if i == 0:
+        if len(list) == 1:
+            print("Kraj(0)")
+        elif i == 0:
             print("Sledeca(>)   Promjena broja stranica(*)   Kraj(0)")
         elif i >= len(list)-n:
             print("Prethodna(<)   Promjena broja stranica(*)   Kraj(0)")
