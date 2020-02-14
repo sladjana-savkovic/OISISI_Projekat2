@@ -10,6 +10,9 @@ class Set(object):
     def ret_key(self):
         return self.dict.keys()
 
+    def ret_val(self, key):
+        return self.dict[key]
+
     def inc_value(self, key):
         self.dict[key] += 1
 
@@ -30,28 +33,28 @@ class Set(object):
 
     def __or__(self, other):
         result = Set()
-        for e in self:
+        for e in self.ret_key():
             result.add(e,e)
-        for e in other:
+        for e in other.ret_key():
             result.add(e,e)
         return result
 
     def __and__(self, other):
         result = Set()
-        for e in other:
-            if e in self.dict:
+        for e in other.ret_key():
+            if e in self.ret_key():
                 result.add(e,e)
         return result
 
     def __sub__(self, other):
         result = Set()
-        for e in self:
-            if e not in other:
+        for e in self.ret_key():
+            if e not in other.ret_key():
                 result.add(e,e)
         return result
 
     def __str__(self):
         a=""
         for e in self.dict:
-            a += str(e) + "\n"
+            a += str(e)+ " " + str(self.dict[e]) + "\n"
         return a
