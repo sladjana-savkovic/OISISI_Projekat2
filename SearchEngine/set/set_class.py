@@ -8,8 +8,6 @@ class Set(object):
         self.dict[key]=value
 
     def ret_key(self):
-        if len(self.dict) == 0:
-            return None
         return self.dict.keys()
 
     def ret_val(self, key):
