@@ -24,9 +24,9 @@ class Graph(object):
         return self.__generate_edges()
 
     #dodaje novi cvor u graf
-    def add_vertex(self, vertex):
-        if vertex not in self.__graph_dict:
-            self.__graph_dict[vertex] = []
+    def add_vertex(self, v):
+        if v not in self.__graph_dict:
+            self.__graph_dict[v] = []
 
     # dodaje novu vezu u graf
     def add_edge(self, edge):
@@ -37,12 +37,13 @@ class Graph(object):
         else:
             self.__graph_dict[vertex1] = [vertex2]
 
+    # pravljene nove veze
     def __generate_edges(self):
         edges = []
         for vertex in self.__graph_dict:
-            for neighbour in self.__graph_dict[vertex]:
-                if {neighbour, vertex} not in edges:
-                    edges.append({vertex, neighbour})
+            for n in self.__graph_dict[vertex]:
+                if {n, vertex} not in edges:
+                    edges.append({vertex, n})
         return edges
 
     #za ispis
@@ -54,21 +55,3 @@ class Graph(object):
         for edge in self.__generate_edges():
             res += str(edge) + " "
         return res
-
-    #funkcija koja vraca sve putanje od jednog do drugog cvora
-    def find_all_paths(self, start_vertex, end_vertex, path=[]):
-        graph = self.__graph_dict
-        path = path + [start_vertex]
-        if start_vertex == end_vertex:
-            return [path]
-        if start_vertex not in graph:
-            return []
-        paths = []
-        for vertex in graph[start_vertex]:
-            if vertex not in path:
-                extended_paths = self.find_all_paths(vertex,
-                                                     end_vertex,
-                                                     path)
-                for p in extended_paths:
-                    paths.append(p)
-        return paths
