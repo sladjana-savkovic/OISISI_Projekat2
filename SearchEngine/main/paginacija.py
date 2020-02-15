@@ -4,18 +4,17 @@ def paginacija(list, n):
     while True:
         ispis(list,i,i+n)
         if len(list) == 1:
-            print("Kraj(0)")
+            print("Kraj paginacije(0)")
         elif i == 0:
-            print("Sledeca(>)   Promjena broja stranica(*)   Kraj(0)")
+            print("Sledeca(>)   Promjena broja stranica(*)   Kraj paginacije(0)")
         elif i >= len(list)-n:
-            print("Prethodna(<)   Promjena broja stranica(*)   Kraj(0)")
+            print("Prethodna(<)   Promjena broja stranica(*)   Kraj paginacije(0)")
         else:
-            print("Prethodna(<)   Sledeca(>)   Promjena broja stranica(*)   Kraj(0)")
-        a = input("Unos: ")
+            print("Prethodna(<)   Sledeca(>)   Promjena broja stranica(*)   Kraj paginacije(0)")
+        a = input()
         if a == '<':  # korisnik unio <
             if i == 0:
                 if a == '0':
-                    print("Kraj...")
                     break
                 else:
                     i = i + n
@@ -23,7 +22,6 @@ def paginacija(list, n):
         elif a == '>': #korisnik unio >
             if i >= len(list)-n:
                 if a == '0':
-                    print("Kraj...")
                     break
                 else:
                     i = i - n
@@ -36,7 +34,6 @@ def paginacija(list, n):
             n = int(n)
 
         elif a == '0':
-            print("Kraj...")
             break
 
 def ispis(list,a,b):
