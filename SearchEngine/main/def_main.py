@@ -19,12 +19,17 @@ def main():
         operator,words = parsiraj_upit(upit)
         #Ako je pogresan upit
         if operator is None and words is None:
-            print("Upit je u pogresnom formatu!")
+            print("Upit je u pogrešnom formatu!")
             continue
         parser_time = (time.time() - start_time)
 
-        n = input("Unesite broj stranica za ispis: ")
-        n = int(n)
+        while True:
+            try:
+                n = input("Unesite broj stranica za ispis: ")
+                n = int(n)
+                break
+            except ValueError:
+                print("Pogrešan format broja!")
 
         start_time = time.time()
         result = pretraga_dokumenta(root,words,operator)
@@ -33,25 +38,36 @@ def main():
         #Nema rezultata pretrage za uneseni upit
         if result is None:
             option = 0
+            #while petlja za slucaj da korisnik unese neki drugi simbol
+            print("Nije pronadjena ni jedna stranica koja odgovara Vašem upitu.")
             while option is 0:
-                    print("Nije pronadjena ni jedna stranica koja odgovara Vašem upitu.")
-                    a = input("Ponovi pretragu (?)      Kraj(0)")
-                    if a == '0':
-                        option = 2
-                        break
-                    elif a == '?':
+                    print("Novi upit(?)     Promjena korijenskog direktorijuma(!)      Kraj(0)")
+                    a=input()
+                    if a == '?':
                         option = 1
+                    elif a == '!':
+                        option = 2
+                    elif a == '0':
+                        option = 3
+                        break
             if option is 1:
+                continue
+            elif option is 2:
                 path = input("Unesite putanju korijenskog direktorijuma: ")
                 start_time = time.time()
                 root, g, graph = make_tree_and_graph(path)
                 tree_graph_time = (time.time() - start_time)
                 continue
-            elif option is 2:
+            elif option is 3:
+                print("\n\n---Tree and graph time: %s seconds ---" % round(tree_graph_time, 2))
+                print("\n---Parser time: %s seconds ---" % round(parser_time, 2))
+                print("\n---Search time: %s seconds ---" % round(search_time, 2))
+                print("\n---SUM time: %s seconds ---" % round(
+                    (tree_graph_time + parser_time + search_time), 2))
                 break
 
         start_time = time.time()
-        list = rang_pretraga(g, graph, words, result, operator)
+        list = rang_pretraga(g, graph, words, result, operator,root)
         rank_time = (time.time() - start_time)
 
         start_time = time.time()
@@ -66,6 +82,22 @@ def main():
         print("\n---Rank time: %s seconds ---" % round(rank_time,2))
         print("\n---Sort time: %s seconds ---" % round(sort_time,2))
         print("\n---SUM time: %s seconds ---" % round((tree_graph_time+parser_time+search_time+rank_time+sort_time),2))
+
+        print("\nNovi upit(?)     Promjena korijenskog direktorijuma(!)     Kraj(0)")
+        a = input()
+
+        if a == '?':
+            continue
+        elif a == '!':
+            path = input("Unesite putanju korijenskog direktorijuma: ")
+            start_time = time.time()
+            root, g, graph = make_tree_and_graph(path)
+            tree_graph_time = (time.time() - start_time)
+            continue
+        elif a == '0':
+            break
+
+        #STAVITI U WHILE PETLJU!
 
 if __name__ == "__main__":
     main()
