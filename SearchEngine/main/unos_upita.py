@@ -3,6 +3,8 @@ def parsiraj_upit(upit):
     words = []
 
     if " " not in upit:
+        if upit.upper() in ['AND','OR','NOT']:
+            return None,None
         words.append(upit)
         return None, words
     else:
