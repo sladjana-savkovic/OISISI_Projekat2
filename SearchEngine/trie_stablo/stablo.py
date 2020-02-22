@@ -6,7 +6,7 @@ from trie_stablo.queue import *
 from main.parser import Parser
 from collections import Counter
 
-#Funkcija vraca broj pojavljivanja trazenih rijeci u nekom dokumentu
+#Metoda vraca broj pojavljivanja trazenih rijeci u nekom dokumentu i broj nenultih
 def find_word_document(word_list, path):
      p = Parser()
      result = [] #rezultujuci niz broja pojavljivanja
@@ -35,16 +35,16 @@ class TrieNode(object):
         """
         node = self
         for char in word:
-            found_in_child = False #Pretpostavka da nismo nasli takvo slovo
+            flag = False #Pretpostavka da nismo nasli takvo slovo
             # Trazimo vrijednost cvorova koji su djeca cvora node
             for child in node.children:
                 if child.char == char:
                     # Kada smo nasli takvo slovo, taj cvor postaje sledeci roditelj
                     node = child
-                    found_in_child = True
+                    flag = True
                     break
             # Nismo nasli takav cvor pa ga dodajemo kao novo dijete
-            if not found_in_child:
+            if not flag:
                 new_node = TrieNode(char)
                 node.children.append(new_node)
                 # Novi roditelj je cvor koji smo dodali
@@ -55,25 +55,26 @@ class TrieNode(object):
         else:
             node.link_dict.inc_value(link)
 
-    #Promijeniti povratnu vrijednost funkcije
+    #Metoda koja vraca skup stranica u kojima se nalazi trazena rijec i broj pojavljivanja svake rijeci u stranici
     def find_word(self, word):
         node = self
-        # Ako je stablo prazno, vracamo False
+        #Ako je stablo prazno vracam prazan skup
         if not self.children:
             return {}
         for char in word:
-            char_not_found = True
+            flag = True
             # Prolazi kroz djecu cvora node
             for child in node.children:
                 if child.char == char:
-                    char_not_found = False
+                    flag = False
                     node = child
                     break
-            if char_not_found:
+            if flag:
                 return {}
 
         return node.link_dict
 
+    #Metoda za obilazak stabla po sirini i ispis svakog cvora
     def breath_first(self):
         node = self
         if not node.children:
@@ -89,11 +90,15 @@ class TrieNode(object):
             print(e.char)
 
             print('*****')
-            # for i in e.link_dict:
-            #     print(str(i) + " " + str(e.link_dict[i]))
             print(e.link_dict)
             print('*****')
 
             for child in e.children:
                 to_visit.enqueue(child)
+
+    def check_depth(self):
+        if len(self.children) == 0:
+            return 0
+        else:
+            return 1
 
