@@ -6,8 +6,12 @@ def paginacija(list, n):
         if len(list) <= 1 or len(list) == n:
             print("Kraj paginacije(0)")
         elif i == 0:
-            print("Broj preostalih stranica: " + str(len(list) - n))
-            print("Sledeca(>)   Promjena broja stranica(*)   Kraj paginacije(0)")
+            if n > len(list):
+                print("Broj preostalih stranica: 0")
+                print("Kraj paginacije(0)")
+            else:
+                print("Broj preostalih stranica: " + str(len(list) - n))
+                print("Sledeca(>)   Promjena broja stranica(*)   Kraj paginacije(0)")
         elif i >= len(list)-n:
             print("Broj preostalih stranica: 0")
             print("Prethodna(<)   Promjena broja stranica(*)   Kraj paginacije(0)")
