@@ -1,20 +1,24 @@
 
-def partition(arr, low, high):
-    i = (low - 1)
-    pivot = arr[high].rank #pivot
+def temp(niz, l, h, sort):
+    i = (l - 1)
+    pivot = niz[h].rank #pivot
 
-    for j in range(low, high):
+    for j in range(l, h):
+        if sort == 0:
+            if niz[j].rank >= pivot:
+                i = i + 1
+                niz[i], niz[j] = niz[j], niz[i]
+        else:
+            if niz[j].rank <= pivot:
+                i = i + 1
+                niz[i], niz[j] = niz[j], niz[i]
 
-        if arr[j].rank >= pivot:
-            i = i + 1
-            arr[i], arr[j] = arr[j], arr[i]
-
-    arr[i + 1], arr[high] = arr[high], arr[i + 1]
+    niz[i + 1], niz[h] = niz[h], niz[i + 1]
     return (i + 1)
 
-def quickSort(arr, low, high):
-    if low < high:
-        p = partition(arr, low, high)
+def quickSort(niz, l, h, sort):
+    if l < h:
+        p = temp(niz, l, h, sort)
 
-        quickSort(arr, low, p - 1)
-        quickSort(arr, p + 1, high)
+        quickSort(niz, l, p - 1, sort)
+        quickSort(niz, p + 1, h, sort)
