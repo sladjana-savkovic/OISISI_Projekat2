@@ -5,7 +5,7 @@ def links_for_rank(g,graph, path):
     for a in range(0, len(graph.vertices())):
         r = graph.vertices()[a]
         if g[r].__contains__(path):
-            s.add(r,r)
+            s.add(r,0)
     return s
 
 class Graph(object):
