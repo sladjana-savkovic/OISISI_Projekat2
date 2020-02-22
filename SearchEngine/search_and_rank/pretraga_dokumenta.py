@@ -1,20 +1,29 @@
 from set.set_class import *
 
-def pretraga_dokumenta(root,words,operator):
+def pretraga_dokumenta(root,words,operator,graph):
     #Rezultat pretrage je skup stranica koje zadovoljavaju upit
     result = Set()
 
-    #Upit se sastoji iz dvije rijeci i operatora
-    if operator in ['AND','OR','NOT']:
+    if len(words) == 1 and str(operator).upper() == 'NOT':
+        r = root.find_word(words[0])
+        for e in graph.vertices():
+            if e not in r.ret_key():
+                result.add(e, 0)
+        if len(result) == 0:
+            result = None
+
+    #Upit se sastoji iz maksimalno dvije rijeci i operatora
+    elif str(operator).upper() in ['AND','OR','NOT']:
         #Odredjivanje skupa HTML stranica koje sadrze pojedinacne rijeci upita
         c1 = root.find_word(words[0])
         c2 = root.find_word(words[1])
-        if operator == "AND":
+
+        if str(operator).upper() == "AND":
             if len(c1) is 0 or len(c2) is 0:
                 return None
             else:
                 result = c1 & c2
-        elif operator == "OR":
+        elif str(operator).upper() == "OR":
             if len(c1) is 0 and len(c2) is 0:
                 return None
             elif len(c1) is 0:
@@ -23,7 +32,7 @@ def pretraga_dokumenta(root,words,operator):
                 result = c1
             else:
                 result = c1 | c2
-        elif operator == "NOT":
+        elif str(operator).upper() == "NOT":
             if (len(c1) is 0 and len(c2) is not 0) or (len(c1) is 0 and len(c2) is 0):
                 return None
             elif len(c1) is not 0 and len(c2) is 0:
