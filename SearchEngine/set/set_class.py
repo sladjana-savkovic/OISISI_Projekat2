@@ -8,10 +8,10 @@ class Set(object):
         self.dict[key]=value
 
     def ret_key(self):
-        return self.dict.keys()
+        return list(self.dict.keys())
 
     def ret_all_val(self):
-        return  self.dict.values()
+        return list(self.dict.values())
 
     def ret_val(self, key):
         if self.dict.get(key) is not None:
@@ -30,11 +30,8 @@ class Set(object):
     def __contains__(self, e):
         if self.dict.get(e) is not None:
             return True
-
         else:
             return False
-    def remove(self,e):
-        del self.dict[e]
 
     def __or__(self, other):
         result = Set()
@@ -72,11 +69,3 @@ class Set(object):
         for e in self.dict:
             a += str(e)+ " " + str(self.dict[e]) + "\n"
         return a
-
-
-if __name__ == "__main__":
-    d=Set()
-    d.add(11,"a")
-    d.add(22,"b")
-    d.add(33,"c")
-    print(d.ret_key())
