@@ -29,7 +29,6 @@ def rang_pretraga(g, graph, words, result, operator,root):
 
         p = result & links
         r3.append(sum(p.ret_all_val()))
-        print(links)
 
     if len(result) > 1:
         if sum(r1)!=0:
