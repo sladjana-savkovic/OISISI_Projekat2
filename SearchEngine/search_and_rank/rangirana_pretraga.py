@@ -31,20 +31,13 @@ def rang_pretraga(g, graph, words, result, operator,root):
         r3.append(sum(p.ret_all_val()))
         print(links)
 
-
-    print("prije")
-    print(r1)
-    print(r2)
-    print(r3)
-
     if len(result) > 1:
-        r1 = scale_list(r1,0,30)
-        r2 = scale_list(r2,0,20)
-        r3 = scale_list(r3,0,50)
-    print("posle")
-    print(r1)
-    print(r2)
-    print(r3)
+        if sum(r1)!=0:
+            r1 = scale_list(r1,0,30)
+        if sum(r2)!=0:
+            r2 = scale_list(r2,0,20)
+        if sum(r3)!=0:
+            r3 = scale_list(r3,0,50)
 
     i=0
     for page in result:
