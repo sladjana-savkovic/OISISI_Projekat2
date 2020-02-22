@@ -7,58 +7,48 @@ class Element(object):
         self.page = page
         self.rank = rank
 
+def scale_number(unscaled, to_min, to_max, from_min, from_max):
+    return (to_max-to_min)*(unscaled-from_min)/(from_max-from_min)+to_min
+
+def scale_list(l, to_min, to_max):
+    return [scale_number(i, to_min, to_max, min(l), max(l)) for i in l]
 
 def rang_pretraga(g, graph, words, result, operator,root):
-    list = []
+    list=[]
 
-    if result is None:
-        return None
-
+    r1,r2,r3=[],[],[]
+    if operator in ["AND", "and", "NOT", "not"]:
+        r1 = result.ret_all_val()
     for page in result:
-        r1,r2,r3 = 0,0,0
-        broj_rijeci,broj_nenultih=find_word_document(words,page)
-        linkovi = links_for_rank(g,graph,page)
+        links = links_for_rank(g,graph,page)
+        r2.append(len(links))
 
-        if operator == "NOT":
-            r1 = broj_rijeci[0]
-        else:
-            r1 = sum(broj_rijeci)/len(broj_rijeci) * broj_nenultih/len(broj_rijeci)
-            if broj_nenultih == len(broj_rijeci):
-                r1=r1*2
+        if operator not in ["AND", "and", "NOT", "not"]:
+            broj_rijeci, broj_nenultih = find_word_document(words, page)
+            r1.append(sum(broj_rijeci) / len(broj_rijeci) * broj_nenultih / len(broj_rijeci))
 
-        r2=len(linkovi)
+        p = result & links
+        r3.append(sum(p.ret_all_val()))
+        print(links)
 
-        for i in range(0,len(words)):
-            d = root.find_word(words[i])
-            p = d & linkovi
-            for j in p.ret_key():
 
-                if operator=='NOT':
-                    if i==0 and d.ret_val(j)==0:
-                        r3+=d.ret_val(j)/100
-                    elif i==1 and d.ret_val(j)!=0:
-                        r3 += d.ret_val(j)/100
-                    else:
-                        r3 += d.ret_val(j)
+    print("prije")
+    print(r1)
+    print(r2)
+    print(r3)
 
-                elif operator=='AND':
-                    if d.ret_val(j)==0:
-                        r3 += d.ret_val(j)/100
-                    else:
-                        r3 += d.ret_val(j)
+    if len(result) > 1:
+        r1 = scale_list(r1,0,30)
+        r2 = scale_list(r2,0,20)
+        r3 = scale_list(r3,0,50)
+    print("posle")
+    print(r1)
+    print(r2)
+    print(r3)
 
-                elif operator=='OR' or (operator is None and len(words)>=1):
-                    if d.ret_val(j)!=0:
-                        r3 += d.ret_val(j)
-                    else:
-                        r3 += d.ret_val(j)/100
-        r3=r3/100
-        if r2 is not 0:
-            r3 = r3/r2
-
-        average_rank=round(r1*(1.0/2) + r2*(1.0/3) + r3*(1.0/6),2)
-
-        e = Element(page, average_rank)
-        list.append(e)
+    i=0
+    for page in result:
+        list.append(Element(page, round(r1[i]+r2[i]+r3[i],2)))
+        i+=1
 
     return list
