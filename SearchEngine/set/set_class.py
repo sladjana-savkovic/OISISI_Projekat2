@@ -11,6 +11,8 @@ class Set(object):
         return list(self.dict.keys())
 
     def ret_all_val(self):
+        if len(self.dict) == 0:
+            return None
         return list(self.dict.values())
 
     def ret_val(self, key):
@@ -42,6 +44,10 @@ class Set(object):
                 result.add(e, 3*(result.ret_val(e) + other.ret_val(e)))
             else:
                 result.add(e,other.ret_val(e))
+
+        if len(result) == 0:
+            return None
+
         return result
 
     def __and__(self, other):
@@ -55,6 +61,9 @@ class Set(object):
                 if e in other.ret_key():
                     result.add(e,other.ret_val(e) + self.ret_val(e))
 
+        if len(result) == 0:
+            return None
+
         return result
 
     def __sub__(self, other):
@@ -62,6 +71,10 @@ class Set(object):
         for e in self.ret_key():
             if e not in other.ret_key():
                 result.add(e,self.ret_val(e))
+
+        if len(result) == 0:
+            return None
+
         return result
 
     def __str__(self):
