@@ -1,7 +1,7 @@
 
 def parsiraj_upit(upit):
     words = []
-    upit = upit.strip()
+    upit = upit.strip() #uklanjanje razmaka sa pocetka i kraja upita
 
     if " " not in upit:
         if upit.upper() in ['AND','OR','NOT']:
@@ -9,8 +9,7 @@ def parsiraj_upit(upit):
         words.append(upit)
         return None, words
     else:
-        text = upit.split()
-        print(text)
+        text = upit.split() #split po whitespace karakterima
         #Primjer upita: NOT Python
         if (text[0].upper() == "NOT") and (len(text) is 2) and (text[1].upper() not in ['AND','OR','NOT']):
             words.append(text[1])
