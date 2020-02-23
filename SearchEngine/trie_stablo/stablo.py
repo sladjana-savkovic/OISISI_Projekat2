@@ -1,6 +1,7 @@
 from set.set_class import Set
 from trie_stablo.queue import *
 
+
 class TrieNode(object):
     """
     Implementacija cvora trie stabla
@@ -15,6 +16,7 @@ class TrieNode(object):
         """
         Dodavanje rijeci u trie stablo, ako znam link stranice u kojoj se rijec nalazi
         """
+        word = word.lower()
         node = self
         for char in word:
             flag = False #Pretpostavka da nismo nasli takvo slovo
