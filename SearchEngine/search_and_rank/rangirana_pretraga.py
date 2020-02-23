@@ -27,7 +27,10 @@ def rang_pretraga(g, graph, words, result, operator,root):
             r1.append(sum(broj_rijeci) / len(broj_rijeci) * broj_nenultih / len(broj_rijeci))
 
         p = result & links
-        r3.append(sum(p.ret_all_val()))
+        if p is not None:
+            r3.append(sum(p.ret_all_val()))
+        else:
+            r3.append(0)
 
     if len(result) > 1:
         if sum(r1)!=0:
