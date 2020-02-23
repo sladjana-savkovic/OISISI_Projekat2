@@ -1,23 +1,5 @@
-"""
-Modul sadrži implementaciju trie stabla.
-"""
 from set.set_class import Set
 from trie_stablo.queue import *
-from main.parser import Parser
-from collections import Counter
-
-#Metoda vraca broj pojavljivanja trazenih rijeci u nekom dokumentu i broj nenultih
-def find_word_document(word_list, path):
-     p = Parser()
-     result = [] #rezultujuci niz broja pojavljivanja
-     br = 0 #broj ne nula elemenata u nizu
-     link, words = p.parse(path)
-     count = Counter(words)
-     for i in range(0,len(word_list)):
-         if count[word_list[i]] > 0:
-             br += 1
-         result.append(count[word_list[i]])
-     return result,br
 
 class TrieNode(object):
     """
@@ -74,6 +56,21 @@ class TrieNode(object):
 
         return node.link_dict
 
+    # Metoda vraca broj pojavljivanja trazenih rijeci u nekom dokumentu i broj nenultih za unesenu listu rijeci
+    def find_word_document(self, word_list, path):
+        result = []
+        br = 0
+        for w in word_list:
+            dict = self.find_word(w)
+            if len(dict) == 0:
+                result.append(0)
+            else:
+                if path in dict.ret_key():
+                    result.append(dict.ret_val(path))
+                    if dict.ret_val(path) > 0:
+                        br += 1
+        return result, br
+
     #Metoda za obilazak stabla po sirini i ispis svakog cvora
     def breath_first(self):
         node = self
@@ -101,4 +98,3 @@ class TrieNode(object):
             return 0
         else:
             return 1
-
