@@ -1,4 +1,3 @@
-from trie_stablo.stablo import find_word_document
 from graph.graph_class import links_for_rank
 
 class Element(object):
@@ -24,7 +23,7 @@ def rang_pretraga(g, graph, words, result, operator,root):
         r2.append(len(links))
 
         if operator not in ["AND", "and", "NOT", "not"]:
-            broj_rijeci, broj_nenultih = find_word_document(words, page)
+            broj_rijeci, broj_nenultih = root.find_word_document(words, page)
             r1.append(sum(broj_rijeci) / len(broj_rijeci) * broj_nenultih / len(broj_rijeci))
 
         p = result & links
