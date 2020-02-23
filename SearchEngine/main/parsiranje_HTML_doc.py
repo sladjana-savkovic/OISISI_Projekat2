@@ -28,11 +28,3 @@ def recursive_walk(f,p,g,root):
             recursive_walk(os.path.join(f,dir),p,g,root)
 
 
-# if __name__ == "__main__":
-#     f = 'C:\\Users\\pc\\Desktop\\Stabla\\python-2.7.7-docs-html'
-#     root,g,graph = make_tree_and_graph(f)
-#
-#     # root.breath_first()
-#     # print(graph)
-
-
