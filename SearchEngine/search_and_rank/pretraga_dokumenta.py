@@ -6,8 +6,12 @@ def pretraga_dokumenta(root,words,operator,graph):
 
     if len(words) == 1 and str(operator).upper() == 'NOT':
         r = root.find_word(words[0])
-        for e in graph.vertices():
-            if e not in r.ret_key():
+        if len(r) != 0:
+            for e in graph.vertices():
+                if e not in r.ret_key():
+                    result.add(e, 0)
+        else:
+            for e in graph.vertices():
                 result.add(e, 0)
         if len(result) == 0:
             result = None
