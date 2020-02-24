@@ -6,18 +6,18 @@ from trie_stablo.stablo import TrieNode
 
 def make_tree_and_graph(f):
     p = Parser()
-    g = {}
+    g = Graph()
     root = TrieNode('*')
 
     recursive_walk(f, p, g, root)
-    graph = Graph(g)
-    return root,g,graph
+    return root,g
 
 def recursive_walk(f,p,g,root):
 
     if isfile(f) is not False and ".html" in f: #f je html fajl
         link, words = p.parse(f)
-        g[f] = link
+        g.add_vertex(f)
+        g.add_edge(f,link)
         i = 0
         while i < len(words):
             root.add(words[i], f)
