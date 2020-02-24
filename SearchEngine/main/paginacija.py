@@ -46,5 +46,5 @@ def paginacija(list, n):
 def ispis(list,a,b):
     for i in range(a,b):
         if i < len(list) and i >= 0:
-            print(str(list[i].page) + " " + str(list[i].rank))
+            print(str(list[i].page) + " (RANG: " + str(list[i].rank) + ")")
 
