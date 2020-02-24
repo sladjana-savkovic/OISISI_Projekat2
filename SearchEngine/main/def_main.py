@@ -10,7 +10,7 @@ def main():
     while True:
         if option == 0:
             path = input("Unesite putanju korijenskog direktorijuma: ")
-            root, g, graph = make_tree_and_graph(path)
+            root, g = make_tree_and_graph(path)
             if root.check_depth() == 0 or isfile(path):
                 print("Putanja nije odgovarajuća. Stablo pretrage je prazno.")
                 continue
@@ -23,7 +23,7 @@ def main():
                 continue
             option += 1
         if option == 2:
-            result = pretraga_dokumenta(root, words, operator,graph)
+            result = pretraga_dokumenta(root, words, operator,g)
             if result is None:
                 option = 4
             else:
@@ -47,7 +47,7 @@ def main():
                     print("Pogrešan format za sortiranje!")
                     continue
 
-                list = rang_pretraga(g, graph, words, result, operator, root)
+                list = rang_pretraga(g, words, result, operator, root)
                 quickSort(list, 0, len(list) - 1, s)
                 paginacija(list, n)
             else:

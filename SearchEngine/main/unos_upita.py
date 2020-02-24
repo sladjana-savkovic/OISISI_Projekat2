@@ -1,8 +1,9 @@
 
 def parsiraj_upit(upit):
+    # povratna vrijednost je operator i lista parsiranih rijeci
     words = []
     upit = upit.strip() #uklanjanje razmaka sa pocetka i kraja upita
-    upit = upit.lower()
+    upit = upit.lower() #pretvaranje stringa u mala slova zbog insensitive pretrage
 
     if " " not in upit:
         if upit in ['and','or','not']:
@@ -12,11 +13,11 @@ def parsiraj_upit(upit):
     else:
         text = upit.split() #split po whitespace karakterima
         #Primjer upita: not Python
-        if (text[0] == "not") and (len(text) is 2) and (text[1] not in ['and','or','not']):
+        if (text[0] == "not") and (len(text) == 2) and (text[1] not in ['and','or','not']):
             words.append(text[1])
             return text[0],words
         #Primjer upita: Python and Java
-        elif (text[1] in ['and','or','not']) and (len(text) is 3) \
+        elif (text[1] in ['and','or','not']) and (len(text) == 3) \
                 and (text[0] not in ['and','or','not']) and (text[2] not in ['and','or','not']):
             words.append(text[0])
             words.append(text[2])
