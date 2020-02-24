@@ -1,9 +1,10 @@
 # OISISI_Projekat2
 
-Razvojno okruzenje: Python 3.7.6
+Verzija programskog jezika: Python 3.7.6
+Razvojno okruzenje: PyCharm Community Edition 2019.3.2
 Nakon kloniranja projekta, potrebno je generisati venv paket u svom radnom okruzenju.
 
--Eksterne biblioteke: 
+Eksterne biblioteke: 
  1.import os
  2.from os.path import isfile, isdir
    
