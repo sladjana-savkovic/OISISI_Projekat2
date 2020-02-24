@@ -1,3 +1,4 @@
+CONST = 3
 
 class Set(object):
 
@@ -5,7 +6,8 @@ class Set(object):
         self.dict = {}
 
     def add(self, key, value):
-        self.dict[key]=value
+        if key not in self.dict.keys():
+            self.dict[key]=value
 
     def ret_key(self):
         return list(self.dict.keys())
@@ -41,7 +43,7 @@ class Set(object):
             result.add(e,self.ret_val(e))
         for e in other.ret_key():
             if e in result.ret_key():
-                result.add(e, 3*(result.ret_val(e) + other.ret_val(e)))
+                result.add(e, CONST*(result.ret_val(e) + other.ret_val(e)))
             else:
                 result.add(e,other.ret_val(e))
 
