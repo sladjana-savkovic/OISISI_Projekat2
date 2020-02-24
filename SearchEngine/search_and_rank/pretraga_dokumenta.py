@@ -23,23 +23,23 @@ def pretraga_dokumenta(root,words,operator,graph):
         c2 = root.find_word(words[1])
 
         if str(operator) == "and":
-            if len(c1) is 0 or len(c2) is 0:
+            if len(c1) == 0 or len(c2) == 0:
                 return None
             else:
                 result = c1 & c2
         elif str(operator) == "or":
-            if len(c1) is 0 and len(c2) is 0:
+            if len(c1) == 0 and len(c2) == 0:
                 return None
-            elif len(c1) is 0:
+            elif len(c1) == 0:
                 result = c2
-            elif len(c2) is 0:
+            elif len(c2) == 0:
                 result = c1
             else:
                 result = c1 | c2
         elif str(operator) == "not":
-            if (len(c1) is 0 and len(c2) is not 0) or (len(c1) is 0 and len(c2) is 0):
+            if (len(c1) == 0 and len(c2) != 0) or (len(c1) == 0 and len(c2) == 0):
                 return None
-            elif len(c1) is not 0 and len(c2) is 0:
+            elif len(c1) != 0 and len(c2) == 0:
                 result = c1
             else:
                 result = c1 - c2
@@ -50,11 +50,11 @@ def pretraga_dokumenta(root,words,operator,graph):
         for word in words:
             c1 = root.find_word(word)
             #Naisli smo na prvu rijec koja se nalazi u stablu
-            if len(c1) is not 0 and flag is False:
+            if len(c1) != 0 and flag is False:
                 rez = c1
                 flag = True
             #Naisli smo na jos neku rijec koja se nalazi u stablu
-            if len(c1) is not 0 and flag is True:
+            if len(c1) != 0 and flag is True:
                 rez = rez | c1
 
         if flag is True:
