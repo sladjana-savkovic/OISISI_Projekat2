@@ -4,7 +4,7 @@ def pretraga_dokumenta(root,words,operator,graph):
     #Rezultat pretrage je skup stranica koje zadovoljavaju upit
     result = Set()
 
-    if len(words) == 1 and str(operator).upper() == 'NOT':
+    if len(words) == 1 and str(operator) == 'not':
         r = root.find_word(words[0])
         if len(r) != 0:
             for e in graph.vertices():
@@ -17,17 +17,17 @@ def pretraga_dokumenta(root,words,operator,graph):
             result = None
 
     #Upit se sastoji iz maksimalno dvije rijeci i operatora
-    elif str(operator).upper() in ['AND','OR','NOT']:
+    elif str(operator) in ['and','or','not']:
         #Odredjivanje skupa HTML stranica koje sadrze pojedinacne rijeci upita
         c1 = root.find_word(words[0])
         c2 = root.find_word(words[1])
 
-        if str(operator).upper() == "AND":
+        if str(operator) == "and":
             if len(c1) is 0 or len(c2) is 0:
                 return None
             else:
                 result = c1 & c2
-        elif str(operator).upper() == "OR":
+        elif str(operator) == "or":
             if len(c1) is 0 and len(c2) is 0:
                 return None
             elif len(c1) is 0:
@@ -36,7 +36,7 @@ def pretraga_dokumenta(root,words,operator,graph):
                 result = c1
             else:
                 result = c1 | c2
-        elif str(operator).upper() == "NOT":
+        elif str(operator) == "not":
             if (len(c1) is 0 and len(c2) is not 0) or (len(c1) is 0 and len(c2) is 0):
                 return None
             elif len(c1) is not 0 and len(c2) is 0:
