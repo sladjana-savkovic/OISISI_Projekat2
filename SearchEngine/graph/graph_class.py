@@ -1,10 +1,9 @@
 from set.set_class import *
 
-def links_for_rank(g,graph, path):
+def links_for_rank(g, path):
     s=Set()
-    for a in range(0, len(graph.vertices())):
-        r = graph.vertices()[a]
-        if g[r].__contains__(path):
+    for r in g.vertices():
+        if path in g.ret_edge(r):
             s.add(r,0)
     return s
 
@@ -19,39 +18,21 @@ class Graph(object):
     def vertices(self):
         return list(self.__graph_dict.keys())
 
-    # vraca sve veze u grafu
-    def edges(self):
-        return self.__generate_edges()
-
-    #dodaje novi cvor u graf
     def add_vertex(self, v):
-        if v not in self.__graph_dict:
+        if v not in self.__graph_dict.keys():
             self.__graph_dict[v] = []
 
-    # dodaje novu vezu u graf
-    def add_edge(self, edge):
-        edge = set(edge)
-        (vertex1, vertex2) = tuple(edge)
-        if vertex1 in self.__graph_dict:
-            self.__graph_dict[vertex1].append(vertex2)
-        else:
-            self.__graph_dict[vertex1] = [vertex2]
+    def add_edge(self,v,e):
+        if v in self.vertices():
+            self.__graph_dict[v] = e
 
-    # pravljene nove veze
-    def __generate_edges(self):
-        edges = []
-        for vertex in self.__graph_dict:
-            for n in self.__graph_dict[vertex]:
-                if {n, vertex} not in edges:
-                    edges.append({vertex, n})
-        return edges
+    def ret_edge(self,v):
+        if v in self.vertices():
+            return list(self.__graph_dict[v])
+        return None
 
-    #za ispis
     def __str__(self):
-        res = "cvorovi: "
-        for k in self.__graph_dict:
-            res += str(k) + " "
-        res += "\nveze: "
-        for edge in self.__generate_edges():
-            res += str(edge) + " "
-        return res
+        a=""
+        for v in self.vertices():
+           a += str(v) + " " + str(self.ret_edge(v)) + "\n"
+        return a
