@@ -74,6 +74,7 @@ class TrieNode(object):
         return result, br
 
     #Metoda za obilazak stabla po sirini i ispis svakog cvora
+    #Pomocna metoda koja se koristi za provjeru da li je stablo dobro napravljeno
     def breath_first(self):
         node = self
         if not node.children:
