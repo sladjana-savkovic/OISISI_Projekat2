@@ -36,9 +36,13 @@ def paginacija(list, n):
         elif a == '*': #korisnik unio *
             if i < len(list) - n:
                 i = i + n
-
-            n = input("Unesite broj stranica za ispis: ")
-            n = int(n)
+            while True:
+                try:
+                    n = input("Unesite broj stranica za ispis: ")
+                    n = int(n)
+                    break
+                except ValueError:
+                    print("Pogrešan format broja!")
 
         elif a == '0':
             break
