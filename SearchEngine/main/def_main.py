@@ -42,9 +42,10 @@ def main():
                     s = input("Izaberite način sortiranja (rastući rang - 1 / opadajući rang - 0): ")
                     s = int(s)
                     if s != 0 and s != 1:
+                        print("Pogrešan format broja!")
                         continue
                 except ValueError:
-                    print("Pogrešan format za sortiranje!")
+                    print("Pogrešan format broja!")
                     continue
 
                 list = rang_pretraga(g, words, result, operator, root)
